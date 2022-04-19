@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            Vue生产环境（production） Devtools 调试
-// @namespace       https://github.com/xcr1234/vue-production-devtools
+// @namespace       https://github.com/xcr1234/vue-devtools-production
 // @version         1.0.0
 // @description     使用本脚本支持直接调试生产环境的Vue项目 支持Vue2、Vue3！
 // @include         *
