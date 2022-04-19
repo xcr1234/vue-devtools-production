@@ -2,7 +2,7 @@
 
 使用本脚本，在生产环境也可以使用Vue Devtools调试你的项目，支持Vue2、Vue3
 
-使用方法：
+使用方法：  
 方法1.在你的vue项目，按F12打开控制台，复制dist/main.js中的内容执行  
 方法2.去https://greasyfork.org/zh-CN/scripts/443634-vue%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83-production-devtools-%E8%B0%83%E8%AF%95安装脚本  
 
