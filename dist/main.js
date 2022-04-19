@@ -1,0 +1,13 @@
+// ==UserScript==
+// @name            Vue生产调试工具
+// @namespace       https://github.com/xcr1234/vue-production-devtools
+// @version         1.0.0
+// @description     使用本脚本支持直接调试生产环境的Vue项目！
+// @include         *
+// @run-at          document-end
+// @grant           none
+// ==/UserScript==
+
+//Build Code - DO NOT MODIFY:
+
+!function(e){var t={};function o(n){if(t[n])return t[n].exports;var r=t[n]={i:n,l:!1,exports:{}};return e[n].call(r.exports,r,r.exports,o),r.l=!0,r.exports}o.m=e,o.c=t,o.d=function(e,t,n){o.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:n})},o.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},o.t=function(e,t){if(1&t&&(e=o(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var n=Object.create(null);if(o.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)o.d(n,r,function(t){return e[t]}.bind(null,r));return n},o.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return o.d(t,"a",t),t},o.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},o.p="",o(o.s=0)}([function(e,t){var o=function(e,t){for(var o=t.__proto__.constructor;o.super;)o=o.super;if(!o.config.devtools&&(o.config.devtools=!0,e.emit("init",o),console.log("vue devtools for ["+o.version+"] already open !!!"),t.$store)){var n=t.$store;n._devtoolHook=e,e.emit("vuex:init",n),e.on("vuex:travel-to-state",(function(e){n.replaceState(e)})),n.subscribe((function(t,o){e.emit("vuex:mutation",t,o)}))}},n=function(e,t){if(!t.config.devtools){t.config.devtools=!0,e.emit("app:init",t,t.version,{Fragment:"Fragment",Text:"Text",Comment:"Comment",Static:"Static"}),console.log("vue devtools for ["+t.version+"] already open !!!");var o=t.unmount.bind(t);t.unmount=function(){e.emit("app:unmount",t),o()}}};!function(){var e=window.__VUE_DEVTOOLS_GLOBAL_HOOK__;if(!e)return console.warn("No Vue devtools found , Please install it first: "),void console.warn("see https://blog.csdn.net/goog_man/article/details/112556875");var t=window.app;t&&(t.__vue__?o(e,t.__vue__):t.__vue_app__?n(e,t.__vue_app__):Object.defineProperties(t,{__vue__:{get:function(){return this.__vue__observe},set:function(t){o(e,t),this.__vue__observe=t}},__vue_app__:{get:function(){return this.__vue_app__observe},set:function(t){n(e,t),this.__vue_app__observe=t}}}))}()}]);

@@ -2,15 +2,15 @@ import {GmFunctions, RunAt, UserScript} from "./UserScript";
 import build from "./build";
 
 const script: UserScript = {
-    name: 'hello world',
-    namespace: 'https://github.com/xcr1234',
-    description: '一个hello world，油猴脚本脚手架',
+    name: 'Vue生产调试工具',
+    namespace: 'https://github.com/xcr1234/vue-production-devtools',
+    description: '使用本脚本支持直接调试生产环境的Vue项目！',
     version: '1.0.0',
-    includes: ['*://*'],
-    grants: [
-        GmFunctions.unsafeWindow
+    includes: [
+        '*'
     ],
-    runAt: RunAt.document_end
+    runAt: RunAt.document_end,
+    grants: "none"
 }
 
 build(script,'app_header.js')

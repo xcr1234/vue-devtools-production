@@ -110,6 +110,8 @@ export default (script: UserScript, destName: string) => {
         result += '// @nocompat'.padEnd(padLen, ' ') + script.nocompat + '\n'
     }
     result += '// ==/UserScript==\n'
+    result += '\n'
+    result += '//Build Code - DO NOT MODIFY:\n'
 
     fs.writeFileSync(dest, result)
 
