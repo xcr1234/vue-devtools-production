@@ -1,4 +1,5 @@
 const vue2 = (hook,vue) => {
+    console.log(vue)
     //vue构造函数
     //Vue2有多级，要找到最顶级的
     let Vue = vue.__proto__.constructor;
@@ -62,6 +63,11 @@ const vue3 = (hook,vue) => {
 
 const main = () => {
 
+    if (self != top) {
+        //在iframe中不执行此脚本
+        return;
+    }
+
     const hook = window['__VUE_DEVTOOLS_GLOBAL_HOOK__']
     if(!hook){
 
@@ -76,33 +82,24 @@ const main = () => {
         return;
     }
 
-    if(app['__vue__']){
-        vue2(hook,app['__vue__'])
-    }else if(app['__vue_app__']){
-        vue3(hook,app['__vue_app__'])
-    }else{
-        // 用Object.defineProperties防止脚本执行时时 __vue__和__vue_app__还没有挂载到app对象上
-        Object.defineProperties(app,{
-            '__vue__':{
-                get(){
-                    return this['__vue__observe']
-                },
-                set(value){
-                    vue2(hook,value)
-                    this['__vue__observe'] = value
-                }
-            },
-            '__vue_app__':{
-                get(){
-                    return this['__vue_app__observe']
-                },
-                set(value){
-                    vue3(hook,value)
-                    this['__vue_app__observe'] = value
-                }
+    const observer = new MutationObserver(((mutations, observer) => {
+        const disconnect = observer.disconnect.bind(observer);
+        for (const {target} of mutations) {
+            if(target['__vue__']){
+                vue2(hook,target['__vue__'])
+                disconnect()
+            }else if(target['__vue_app']){
+                vue3(hook,target['__vue_app'])
+                disconnect()
             }
-        })
-    }
+        }
+    }))
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        subtree: true,
+        childList: true
+    });
 
 }
 
