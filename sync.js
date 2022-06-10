@@ -44,13 +44,13 @@ const findUuid = (name) => {
 module.exports = async (header) => {
     //检查7000端口是否打开
     if(!await checkPort(7000)){
-        throw '7000端口未打开！请先执行npm run start:server'
+        throw new Error('7000端口未打开！请先执行npm run start:server')
     }
     const name = getName(header)
     const uuid = findUuid(name)
 
     if(!uuid){
-        throw `没有找到名称为 ${name}的脚本，请确认在脚本中是否正确配置！`
+        throw new Error(`没有找到名称为 ${name}的脚本，请确认在脚本中是否正确配置！`)
     }
 
     const result =  {

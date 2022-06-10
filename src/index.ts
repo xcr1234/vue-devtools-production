@@ -1,5 +1,4 @@
 const vue2 = (hook,vue) => {
-    console.log(vue)
     //vue构造函数
     //Vue2有多级，要找到最顶级的
     let Vue = vue.__proto__.constructor;
@@ -28,13 +27,18 @@ const vue2 = (hook,vue) => {
         const store = vue.$store;
         store._devtoolHook = hook;
         hook.emit('vuex:init', store);
-        hook.on('vuex:travel-to-state', function (targetState) {
+        hook.on('vuex:travel-to-state', (targetState) => {
             store.replaceState(targetState);
         });
-        store.subscribe(function (mutation, state) {
+        store.subscribe( (mutation, state) => {
             hook.emit('vuex:mutation', mutation, state);
         });
     }
+}
+
+
+const getSymbol = (value) => {
+    return typeof Symbol === 'function' ? Symbol(value) : value
 }
 
 const vue3 = (hook,vue) => {
@@ -46,16 +50,16 @@ const vue3 = (hook,vue) => {
 
     vue.config.devtools = true
     hook.emit('app:init',vue,vue.version,{
-        Fragment: 'Fragment',
-        Text: 'Text',
-        Comment: 'Comment',
-        Static: 'Static'
+        Fragment: getSymbol('Fragment'),
+        Text: getSymbol('Text'),
+        Comment: getSymbol('Comment'),
+        Static: getSymbol('Static')
     })
 
     console.log(`vue devtools for [${vue.version}] already open !!!`)
 
     const unmount = vue.unmount.bind(vue);
-    vue.unmount = function () {
+    vue.unmount = () => {
         hook.emit('app:unmount', vue);
         unmount();
     }

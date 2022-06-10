@@ -101,7 +101,6 @@
 /***/ (function(module, exports) {
 
 var vue2 = function (hook, vue) {
-    console.log(vue);
     //vue构造函数
     //Vue2有多级，要找到最顶级的
     var Vue = vue.__proto__.constructor;
@@ -131,6 +130,9 @@ var vue2 = function (hook, vue) {
         });
     }
 };
+var getSymbol = function (value) {
+    return typeof Symbol === 'function' ? Symbol(value) : value;
+};
 var vue3 = function (hook, vue) {
     // vue3的注册方式 参考了 vue-core的源码 实现
     // https://github.com/vuejs/core/blob/main/packages/runtime-core/src/devtools.ts
@@ -139,10 +141,10 @@ var vue3 = function (hook, vue) {
     }
     vue.config.devtools = true;
     hook.emit('app:init', vue, vue.version, {
-        Fragment: 'Fragment',
-        Text: 'Text',
-        Comment: 'Comment',
-        Static: 'Static'
+        Fragment: getSymbol('Fragment'),
+        Text: getSymbol('Text'),
+        Comment: getSymbol('Comment'),
+        Static: getSymbol('Static')
     });
     console.log("vue devtools for [" + vue.version + "] already open !!!");
     var unmount = vue.unmount.bind(vue);

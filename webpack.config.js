@@ -19,7 +19,7 @@ let output = {
 module.exports = async () => {
 
     if(!fs.existsSync(header_path)){
-        throw '文件' + header_path + '不存在，请先执行npm run build:header编译！'
+        throw new Error('文件' + header_path + '不存在，请先执行npm run build:header编译！')
     }
     const header =  fs.readFileSync(header_path,'utf-8')
 
