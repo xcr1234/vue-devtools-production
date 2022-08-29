@@ -30,6 +30,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "query-string": "^7.1.1"
   }
 }
