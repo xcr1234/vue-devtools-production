@@ -117,6 +117,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var vue2_1 = __webpack_require__(2);
 var vue3_1 = __webpack_require__(3);
 exports.default = (function () {
+    if (self != top) {
+        //在iframe中不执行此脚本
+        return;
+    }
     var devtools = window['__VUE_DEVTOOLS_GLOBAL_HOOK__'];
     if (!devtools) {
         console.warn('No Vue devtools found , Please install it first: ');
