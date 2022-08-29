@@ -1,7 +1,13 @@
 # Vue生产环境（production） Devtools 调试 
 
 使用本脚本，在生产环境也可以使用Vue Devtools调试你的项目，支持Vue2、Vue3  
-1.1版本对hook方式进行了重写，结构更清晰
+1.1版本对hook方式进行了重写，结构更清晰  
+正常情况下，开启成功后，控制台会显示：，并且可以使用Vue Devtools:
+
+![img](.github/img_6.png)
+
+![img](.github/img_7.png)
+
 
 使用方法：    
 **方法1**  
