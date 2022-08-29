@@ -1,6 +1,7 @@
 # Vue生产环境（production） Devtools 调试 
 
-使用本脚本，在生产环境也可以使用Vue Devtools调试你的项目，支持Vue2、Vue3
+使用本脚本，在生产环境也可以使用Vue Devtools调试你的项目，支持Vue2、Vue3  
+1.1版本对hook方式进行了重写，结构更清晰
 
 使用方法：    
 **方法1**  
