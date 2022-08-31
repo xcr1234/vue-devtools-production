@@ -4,9 +4,9 @@
 1.1版本对hook方式进行了重写，结构更清晰  
 正常情况下，开启成功后，控制台会显示：，并且可以使用Vue Devtools:
 
-![img](.github/img_6.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_6.png)
 
-![img](.github/img_7.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_7.png)
 
 
 使用方法：    
@@ -32,16 +32,16 @@
 
 在油猴中设置
 
-![img](.github/img_4.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_4.png)
 
 
 3.点 + ，把第1步编译的结果`dist/main.js`粘贴进去 保存
 
-![img](.github/img_5.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_5.png)
 
-![img](.github/img_2.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_2.png)
 
-![img](.github/img_3.png)
+![img](https://gitee.com/ironV/vue-devtools-production/raw/master/.github/img_3.png)
 
 4.执行 `npm run sync`，现在每次更新就会自动同步到油猴中了，不需要手动粘贴！
 
