@@ -1,7 +1,7 @@
 const path = require('path');
 const BannerPlugin = require('webpack/lib/BannerPlugin')
-const FriendlyErrorsWebpackPlugin=require('friendly-errors-webpack-plugin')
-const { CheckerPlugin } = require('awesome-typescript-loader')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
+const {CheckerPlugin} = require('awesome-typescript-loader')
 const TerserPlugin = require('terser-webpack-plugin')
 const fs = require('fs')
 const argv = require('yargs').argv;
@@ -18,18 +18,18 @@ let output = {
 
 module.exports = async () => {
 
-    if(!fs.existsSync(header_path)){
+    if (!fs.existsSync(header_path)) {
         throw new Error('文件' + header_path + '不存在，请先执行npm run build:header编译！')
     }
-    const header =  fs.readFileSync(header_path,'utf-8')
+    const header = fs.readFileSync(header_path, 'utf-8')
 
 
-    if(argv.sync === 'yes'){
+    if (argv.sync === 'yes') {
         //WebDav同步模式，更改输出目标
         output = await sync(header)
     }
 
-    return  {
+    return {
         mode: 'none',
 
         entry: './src/index.ts',
@@ -40,21 +40,23 @@ module.exports = async () => {
             port: 4200
         },
         module: {
-            rules: [{
-                test: /\.ts$/,
-                use: "awesome-typescript-loader",       //比ts-loader编译速度更快
-                exclude: /header/
-            }]
+            rules: [
+                {
+                    test: /\.ts$/,
+                    use: "awesome-typescript-loader",       //比ts-loader编译速度更快
+                    exclude: /header/
+                }
+            ]
         },
         resolve: {
             extensions: [
-                '.ts'
+                '.ts', '.js'
             ]
         },
         plugins: [
             new FriendlyErrorsWebpackPlugin(),
             new CheckerPlugin(),
-          //  new TerserPlugin(),
+            //  new TerserPlugin(),
             new BannerPlugin({
                 banner: header,
                 raw: true

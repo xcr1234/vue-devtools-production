@@ -1,8 +1,13 @@
-import {Devtools} from "./devtools";
+import {DevtoolsHook} from "./hook";
+import {addDevtools} from "./vue3-store";
+
 
 export interface Vue3App {
     config: {
-        devtools: boolean
+        devtools: boolean,
+        globalProperties:{
+            $store?:any
+        },
     },
     version: string
     unmount():void;
@@ -18,7 +23,7 @@ const getSymbol = (value: string): symbol| string => {
  * @param hook
  * @param vue
  */
-export const hookVue3 = (hook: Devtools, vue: Vue3App) => {
+export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
     if(vue.config.devtools){
         //当前已经开启了devtools了，避免在dev环境注入或者重复注入
         return
@@ -41,5 +46,16 @@ export const hookVue3 = (hook: Devtools, vue: Vue3App) => {
     vue.unmount = () => {
         hook.emit('app:unmount', vue);
         unmount();
+    }
+
+    //注册Vue3 Store，参考代码
+    // https://github.com/vuejs/vuex/blob/main/src/store.js
+    // https://github.com/vuejs/vuex/blob/main/src/plugins/devtool.
+
+
+
+    const store = vue.config.globalProperties.$store
+    if(store){
+        addDevtools(vue,store)
     }
 }

@@ -1,4 +1,4 @@
-import {Devtools} from "./devtools";
+import {DevtoolsHook} from "./hook";
 import {hookVue2} from "./vue2";
 import {hookVue3} from "./vue3";
 import {WindowApp} from "./window";
@@ -8,7 +8,7 @@ export default () => {
         //在iframe中不执行此脚本
         return;
     }
-    const devtools: Devtools = window['__VUE_DEVTOOLS_GLOBAL_HOOK__']
+    const devtools: DevtoolsHook = window['__VUE_DEVTOOLS_GLOBAL_HOOK__']
     if (!devtools) {
         console.warn('No Vue devtools found , Please install it first: ')
         console.warn('see https://github.com/vuejs/vue-devtools')
