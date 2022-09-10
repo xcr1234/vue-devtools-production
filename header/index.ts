@@ -1,10 +1,9 @@
 import {GmFunctions, RunAt, UserScript} from "./UserScript";
 import build from "./build";
-const fs = require('fs')
+import * as fs from 'fs'
 
 //读取png图片为base64格式
-const bitmap = fs.readFileSync('header/Vue.png')
-const base64str = Buffer.from(bitmap, 'binary').toString('base64')
+const base64str = fs.readFileSync('header/Vue.png','base64')
 
 const script: UserScript = {
     name: 'Vue生产环境（production） Devtools 调试',
