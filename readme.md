@@ -44,7 +44,7 @@ console.log('hello world')
 
 正文开发是在`src/index.ts`，在开发时，如果使用到`GM_`相关函数，有完整的声明支持：
 
-![img](https://s1.328888.xyz/2022/09/11/KLEVh.png)
+![img](https://s1.328888.xyz/2022/09/11/KEv6g.png)
 
 
 ## 热部署
