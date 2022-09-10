@@ -18,9 +18,34 @@
 
 ## 开发
 
-如果修改了`header/index.ts`，需要执行`npm run build:header`编译一下头
+一个完整的油猴脚本格式如下
 
-代码在`src/index.ts`中
+```javascript
+// ==UserScript==
+
+// 这部分是头部区域，一般来说不会经常修改
+
+// ==/UserScript==
+
+// 这里是正文，也就是脚本的执行部分，是需要经常修改的
+console.log('hello world')
+```
+
+## 头部区域
+
+头部区域的开发是在`header/index.ts`，使用了typescript，这样会有IDE完全支持，而不是单纯的写几个注释
+
+![img](https://s1.328888.xyz/2022/09/11/KLEVh.png)
+
+
+开发完毕后执行`npm run build:header`编译
+
+## 正文
+
+正文开发是在`src/index.ts`，在开发时，如果使用到`GM_`相关函数，有完整的声明支持：
+
+![img](https://s1.328888.xyz/2022/09/11/KLEVh.png)
+
 
 ## 热部署
 
@@ -32,16 +57,16 @@
 
 在油猴中设置
 
-![img](https://s1.328888.xyz/2022/09/11/KLlFs.png)
+![img](https://s1.328888.xyz/2022/09/11/KLm90.png)
 
 
 3.点 + ，把第1步编译的结果`dist/main.js`粘贴进去 保存
 
-![img](https://s1.328888.xyz/2022/09/11/KLm90.png)
-
-![img](https://s1.328888.xyz/2022/09/11/KLEVh.png)
-
 ![img](https://s1.328888.xyz/2022/09/11/KLLHn.png)
+
+![img](https://s1.328888.xyz/2022/09/11/KLlFs.png)
+
+![img](https://s1.328888.xyz/2022/09/11/KLm90.png)
 
 4.执行 `npm run sync`，现在每次更新就会自动同步到油猴中了，不需要手动粘贴！
 
