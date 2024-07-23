@@ -9,7 +9,7 @@ declare interface WindowApp{
 
 declare const window : {
     app?:WindowApp
-    '__VUE_DEVTOOLS_GLOBAL_HOOK__'?: any
+    '__VUE_DEVTOOLS_GLOBAL_HOOK__'?: DevtoolsHook
 } & Window
 
 export default () => {
@@ -17,7 +17,7 @@ export default () => {
         //在iframe中不执行此脚本
         return;
     }
-    const devtools: DevtoolsHook = window['__VUE_DEVTOOLS_GLOBAL_HOOK__']
+    const devtools = window['__VUE_DEVTOOLS_GLOBAL_HOOK__']
     if (!devtools) {
         console.warn('No Vue devtools found , Please install it first: ')
         console.warn('see https://github.com/vuejs/vue-devtools')

@@ -1,5 +1,4 @@
 import {DevtoolsHook} from "./hook";
-//@ts-ignore
 import {registerPiniaDevtools} from 'pinia'
 
 export interface Vue3App {
@@ -7,16 +6,13 @@ export interface Vue3App {
         devtools: boolean,
         globalProperties:{
             $store?:any
+            $pinia?: any
         },
     },
     version: string
     unmount():void;
 }
 
-
-const getSymbol = (value: string) => {
-    return Symbol(value)
-}
 
 /**
  * vue3的注册方式
@@ -34,10 +30,10 @@ export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
     // 参考了 vue-core的源码 实现
     // https://github.com/vuejs/core/blob/main/packages/runtime-core/src/devtools.ts
     hook.emit('app:init',vue,vue.version,{
-        Fragment: getSymbol('Fragment'),
-        Text: getSymbol('Text'),
-        Comment: getSymbol('Comment'),
-        Static: getSymbol('Static')
+        Fragment: Symbol.for('Fragment'),
+        Text: Symbol.for('Text'),
+        Comment: Symbol.for('Comment'),
+        Static: Symbol.for('Static')
     })
 
     console.log(`vue devtools for [${vue.version}] already open !!!`)
@@ -47,9 +43,11 @@ export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
         hook.emit('app:unmount', vue);
         unmount();
     }
-    //@ts-ignore
+    if(vue.config.globalProperties.$store){
+        console.warn('vuex for vue3 not support. please use pinia')
+    }
     const pinia = vue.config.globalProperties.$pinia
-
-    registerPiniaDevtools(vue, pinia)
-
+    if(pinia){
+        registerPiniaDevtools(vue, pinia)
+    }
 }

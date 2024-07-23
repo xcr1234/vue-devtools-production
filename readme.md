@@ -2,6 +2,8 @@
 
 使用本脚本，在生产环境也可以使用Vue Devtools调试你的项目，支持Vue2、Vue3  
 1.1版本对hook方式进行了重写，结构更清晰  
+**2.0版本用vite重新编译，vue3去除vuex，改用pinia**
+
 正常情况下，开启成功后，控制台会显示：，并且可以使用Vue Devtools(vue2)和pinia(vue3):
 
 ![img](https://pic.imgdb.cn/item/6506d2af661c6c8e5458a22c.png)
@@ -21,8 +23,4 @@
 
 https://github.com/xcr1234/tampermonkey-typescript
 
-## 2.0版本更新内容
 
-用vite重新编译
-
-vue3去除devtools，改用pinia
