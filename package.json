@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc && vite build",
     "build:sync": "tsc && vite build --watch --mode sync",
-    "start:server": "node server.cjs"
+    "start:server": "node server.cjs",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.6",
@@ -21,6 +22,10 @@
     "vite": "^5.3.1"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "patch-package": "^8.0.0",
+    "pinia": "^2.1.7",
+    "postinstall-postinstall": "^2.1.0",
+    "vue": "^3.4.33"
   }
 }

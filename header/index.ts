@@ -1,15 +1,21 @@
-import {GmFunctions, RunAt, UserScript} from "./UserScript";
+import { RunAt, UserScript} from "./UserScript";
+import * as fs from 'fs'
+
+//读取png图片为base64格式
+const base64str = fs.readFileSync('header/Vue.png','base64')
 
 const script: UserScript = {
-    name: 'hello world',
-    namespace: 'https://github.com/xcr1234',
-    description: '一个hello world，油猴脚本脚手架',
-    version: '1.0.0',
-    includes: ['*://*'],
-    grants: [
-        GmFunctions.unsafeWindow
+    name: 'Vue生产环境（production） Devtools 调试',
+    namespace: 'https://github.com/xcr1234/vue-devtools-production',
+    homepage: 'https://github.com/xcr1234/vue-devtools-production',
+    description: '使用本脚本支持直接调试生产环境的Vue项目 完美支持Vue2、Vue3！',
+    icon: 'data:image/jpeg;base64,' + base64str,
+    version: '2.0.0',
+    includes: [
+        '*'
     ],
-    runAt: RunAt.document_end
+    runAt: RunAt.document_end,
+    grants: "none"
 }
 
 export default script

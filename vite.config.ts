@@ -8,10 +8,11 @@ export default defineConfig({
         lib:{
             entry: 'src/index.ts',
             name: 'main',
-            fileName: 'main',
+            fileName: () => 'main.js',
             formats: ['es']
         },
-        outDir: 'dist'
+        outDir: 'dist',
+
     },
     plugins: [
         headerPlugin(),
@@ -19,5 +20,8 @@ export default defineConfig({
             ...syncPlugin(),
             apply: (_, {mode}) => mode === 'sync'
         }
-    ]
+    ],
+    define:{
+        'process.env.NODE_ENV': JSON.stringify('production')
+    }
 })
