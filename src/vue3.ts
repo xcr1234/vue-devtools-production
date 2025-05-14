@@ -14,6 +14,16 @@ export interface Vue3App {
 }
 
 
+const newVersion = (version: string) => {
+    if(version.includes('-alpha.')){
+        //版本号包括-alpha，只获取前面的部分
+        version = version.split('-alpha.')[0]
+    }
+    // 字符串判断版本号是否大于3.3
+    const [major, minor] = version.split('.').map(Number);
+    return major > 3 || (major === 3 && minor >= 3);}
+
+
 /**
  * vue3的注册方式
  * @param hook
@@ -29,12 +39,24 @@ export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
 
     // 参考了 vue-core的源码 实现
     // https://github.com/vuejs/core/blob/main/packages/runtime-core/src/devtools.ts
-    hook.emit('app:init',vue,vue.version,{
-        Fragment: Symbol.for('Fragment'),
-        Text: Symbol.for('Text'),
-        Comment: Symbol.for('Comment'),
-        Static: Symbol.for('Static')
-    })
+
+    if(newVersion(vue.version)){
+        hook.emit('app:init',vue,vue.version,{
+            Fragment: Symbol.for('v-fgt'),
+            Text: Symbol.for('v-txt'),
+            Comment:  Symbol.for('v-cmt'),
+            Static: Symbol.for('v-stc')
+        })
+    }else{
+        hook.emit('app:init',vue,vue.version,{
+            Fragment: Symbol.for('Fragment'),
+            Text: Symbol.for('Text'),
+            Comment: Symbol.for('Comment'),
+            Static: Symbol.for('Static')
+        })
+    }
+
+
 
     console.log(`vue devtools for [${vue.version}] already open !!!`)
 

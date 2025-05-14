@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            Vue生产环境（production） Devtools 调试
 // @namespace       https://github.com/xcr1234/vue-devtools-production
-// @version         2.0.0
+// @version         2.1.0
 // @description     使用本脚本支持直接调试生产环境的Vue项目 完美支持Vue2、Vue3！
 // @homepage        https://github.com/xcr1234/vue-devtools-production
 // @icon            data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAbpJREFUOE+lkz9IG2EYxp/3Eo1GHWzFDqFKLQ6CIGpLS9GSQzGniw5OLTg6CCLO5kT86FpolnR3kFYXJ+9o2u9EcPEPEdqp4qKlbbaihpxw98n3JUqMqYp+03s87/P7/jzvEe656J5+KIC+ymwQBmR99OGnYgoh1rethdeyfjY4tg6gR9Z1U615HfTFMeIDCtC38u6RH/L/yPo0/S/lrmX6VRfRKAEBIcQn+Vn5on4j9LLhlQL43mNnaO7w4grR1XlGRHEpHn/c3xWu1wHgBwANQBtVaPu1E09bCuAEj8Wn1B7Fb6Bb7ARA2Pud28l+Pugq1sIjke+B5nA7gBw3zOpz7RIgarNREliSYnb5IOX9yqmraA2hzZq3Tc/Vjj4mvg2ZybIA9aAW4wCivutnjpN7NUSk1Y4/yVJ18CGANDfMzuKTXYlRt+e7IWhLNrk8w4WPYFVfY28+GejOoOlcCyjEmgBhsmRGFrlhvimdm7KDFLPmHpwikAEQyBvI01yKfB2e+XsrgDqFzaYh8L5gmOWGyUrNV2IsbdAtlgYQ5IYp4yu7rv0XojYbkQAnZi7fCfA/040p3MZ43nMG7TKHEfrJ20kAAAAASUVORK5CYII=
@@ -9,15 +9,15 @@
 // @run-at          document-end
 // @grant           none
 // ==/UserScript==
-const v = (e, n) => {
-  let o = Object.getPrototypeOf(n).constructor;
+const v = (e, t) => {
+  let o = Object.getPrototypeOf(t).constructor;
   for (; o.super; )
     o = o.super;
-  if (!o.config.devtools && (o.config.devtools = !0, e.emit("init", o), console.log(`vue devtools for [${o.version}] already open !!!`), n.$store)) {
-    const t = n.$store;
-    t._devtoolHook = e, e.emit("vuex:init", t), e.on("vuex:travel-to-state", (s) => {
-      t.replaceState(s);
-    }), t.subscribe((s, a) => {
+  if (!o.config.devtools && (o.config.devtools = !0, e.emit("init", o), console.log(`vue devtools for [${o.version}] already open !!!`), t.$store)) {
+    const n = t.$store;
+    n._devtoolHook = e, e.emit("vuex:init", n), e.on("vuex:travel-to-state", (s) => {
+      n.replaceState(s);
+    }), n.subscribe((s, a) => {
       e.emit("vuex:mutation", s, a);
     });
   }
@@ -37,35 +37,35 @@ new Set(
   /* @__PURE__ */ Object.getOwnPropertyNames(Symbol).filter((e) => e !== "arguments" && e !== "caller").map((e) => Symbol[e]).filter(N)
 );
 function E(e) {
-  const n = e && e.__v_raw;
-  return n ? E(n) : e;
+  const t = e && e.__v_raw;
+  return t ? E(t) : e;
 }
-function R() {
+function C() {
   return I().__VUE_DEVTOOLS_GLOBAL_HOOK__;
 }
 function I() {
   return typeof navigator < "u" && typeof window < "u" ? window : typeof globalThis < "u" ? globalThis : {};
 }
-const C = typeof Proxy == "function", U = "devtools-plugin:setup", D = "plugin:settings:set";
-let _, m;
+const R = typeof Proxy == "function", U = "devtools-plugin:setup", D = "plugin:settings:set";
+let _, h;
 function G() {
   var e;
-  return _ !== void 0 || (typeof window < "u" && window.performance ? (_ = !0, m = window.performance) : typeof globalThis < "u" && (!((e = globalThis.perf_hooks) === null || e === void 0) && e.performance) ? (_ = !0, m = globalThis.perf_hooks.performance) : _ = !1), _;
+  return _ !== void 0 || (typeof window < "u" && window.performance ? (_ = !0, h = window.performance) : typeof globalThis < "u" && (!((e = globalThis.perf_hooks) === null || e === void 0) && e.performance) ? (_ = !0, h = globalThis.perf_hooks.performance) : _ = !1), _;
 }
-function M() {
-  return G() ? m.now() : Date.now();
+function F() {
+  return G() ? h.now() : Date.now();
 }
-class F {
-  constructor(n, o) {
-    this.target = null, this.targetQueue = [], this.onQueue = [], this.plugin = n, this.hook = o;
-    const t = {};
-    if (n.settings)
-      for (const i in n.settings) {
-        const r = n.settings[i];
-        t[i] = r.defaultValue;
+class M {
+  constructor(t, o) {
+    this.target = null, this.targetQueue = [], this.onQueue = [], this.plugin = t, this.hook = o;
+    const n = {};
+    if (t.settings)
+      for (const i in t.settings) {
+        const r = t.settings[i];
+        n[i] = r.defaultValue;
       }
-    const s = `__vue-devtools-plugin-settings__${n.id}`;
-    let a = Object.assign({}, t);
+    const s = `__vue-devtools-plugin-settings__${t.id}`;
+    let a = Object.assign({}, n);
     try {
       const i = localStorage.getItem(s), r = JSON.parse(i);
       Object.assign(a, r);
@@ -83,7 +83,7 @@ class F {
         a = i;
       },
       now() {
-        return M();
+        return F();
       }
     }, o && o.on(D, (i, r) => {
       i === this.plugin.id && this.fallbacks.setSettings(r);
@@ -100,34 +100,34 @@ class F {
         args: c,
         resolve: () => {
         }
-      }), this.fallbacks[r](...c)) : (...c) => new Promise((f) => {
+      }), this.fallbacks[r](...c)) : (...c) => new Promise((u) => {
         this.targetQueue.push({
           method: r,
           args: c,
-          resolve: f
+          resolve: u
         });
       })
     });
   }
-  async setRealTarget(n) {
-    this.target = n;
+  async setRealTarget(t) {
+    this.target = t;
     for (const o of this.onQueue)
       this.target.on[o.method](...o.args);
     for (const o of this.targetQueue)
       o.resolve(await this.target[o.method](...o.args));
   }
 }
-function H(e, n) {
-  const o = e, t = I(), s = R(), a = C && o.enableEarlyProxy;
-  if (s && (t.__VUE_DEVTOOLS_PLUGIN_API_AVAILABLE__ || !a))
-    s.emit(U, e, n);
+function H(e, t) {
+  const o = e, n = I(), s = C(), a = R && o.enableEarlyProxy;
+  if (s && (n.__VUE_DEVTOOLS_PLUGIN_API_AVAILABLE__ || !a))
+    s.emit(U, e, t);
   else {
-    const i = a ? new F(o, s) : null;
-    (t.__VUE_DEVTOOLS_PLUGINS__ = t.__VUE_DEVTOOLS_PLUGINS__ || []).push({
+    const i = a ? new M(o, s) : null;
+    (n.__VUE_DEVTOOLS_PLUGINS__ = n.__VUE_DEVTOOLS_PLUGINS__ || []).push({
       pluginDescriptor: o,
-      setupFn: n,
+      setupFn: t,
       proxy: i
-    }), i && n(i.proxiedTarget);
+    }), i && t(i.proxiedTarget);
   }
 }
 /*!
@@ -141,25 +141,25 @@ var b;
 })(b || (b = {}));
 const J = typeof window < "u";
 const O = typeof window == "object" && window.window === window ? window : typeof self == "object" && self.self === self ? self : typeof global == "object" && global.global === global ? global : typeof globalThis == "object" ? globalThis : { HTMLElement: null };
-function B(e, { autoBom: n = !1 } = {}) {
-  return n && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type) ? new Blob(["\uFEFF", e], { type: e.type }) : e;
+function B(e, { autoBom: t = !1 } = {}) {
+  return t && /^\s*(?:text\/\S*|application\/xml|\S*\/\S*\+xml)\s*;.*charset\s*=\s*utf-8/i.test(e.type) ? new Blob(["\uFEFF", e], { type: e.type }) : e;
 }
-function S(e, n, o) {
-  const t = new XMLHttpRequest();
-  t.open("GET", e), t.responseType = "blob", t.onload = function() {
-    A(t.response, n, o);
-  }, t.onerror = function() {
+function S(e, t, o) {
+  const n = new XMLHttpRequest();
+  n.open("GET", e), n.responseType = "blob", n.onload = function() {
+    x(n.response, t, o);
+  }, n.onerror = function() {
     console.error("could not download file");
-  }, t.send();
+  }, n.send();
 }
 function L(e) {
-  const n = new XMLHttpRequest();
-  n.open("HEAD", e, !1);
+  const t = new XMLHttpRequest();
+  t.open("HEAD", e, !1);
   try {
-    n.send();
+    t.send();
   } catch {
   }
-  return n.status >= 200 && n.status <= 299;
+  return t.status >= 200 && t.status <= 299;
 }
 function g(e) {
   try {
@@ -169,65 +169,65 @@ function g(e) {
     o.initMouseEvent("click", !0, !0, window, 0, 0, 0, 80, 20, !1, !1, !1, !1, 0, null), e.dispatchEvent(o);
   }
 }
-const h = typeof navigator == "object" ? navigator : { userAgent: "" }, P = /Macintosh/.test(h.userAgent) && /AppleWebKit/.test(h.userAgent) && !/Safari/.test(h.userAgent), A = J ? (
+const m = typeof navigator == "object" ? navigator : { userAgent: "" }, P = /Macintosh/.test(m.userAgent) && /AppleWebKit/.test(m.userAgent) && !/Safari/.test(m.userAgent), x = J ? (
   // Use download attribute first if possible (#193 Lumia mobile) unless this is a macOS WebView or mini program
   typeof HTMLAnchorElement < "u" && "download" in HTMLAnchorElement.prototype && !P ? Q : (
     // Use msSaveOrOpenBlob as a second approach
-    "msSaveOrOpenBlob" in h ? K : (
+    "msSaveOrOpenBlob" in m ? K : (
       // Fallback to using FileReader and a popup
       Y
     )
   )
 ) : () => {
 };
-function Q(e, n = "download", o) {
-  const t = document.createElement("a");
-  t.download = n, t.rel = "noopener", typeof e == "string" ? (t.href = e, t.origin !== location.origin ? L(t.href) ? S(e, n, o) : (t.target = "_blank", g(t)) : g(t)) : (t.href = URL.createObjectURL(e), setTimeout(function() {
-    URL.revokeObjectURL(t.href);
+function Q(e, t = "download", o) {
+  const n = document.createElement("a");
+  n.download = t, n.rel = "noopener", typeof e == "string" ? (n.href = e, n.origin !== location.origin ? L(n.href) ? S(e, t, o) : (n.target = "_blank", g(n)) : g(n)) : (n.href = URL.createObjectURL(e), setTimeout(function() {
+    URL.revokeObjectURL(n.href);
   }, 4e4), setTimeout(function() {
-    g(t);
+    g(n);
   }, 0));
 }
-function K(e, n = "download", o) {
+function K(e, t = "download", o) {
   if (typeof e == "string")
     if (L(e))
-      S(e, n, o);
+      S(e, t, o);
     else {
-      const t = document.createElement("a");
-      t.href = e, t.target = "_blank", setTimeout(function() {
-        g(t);
+      const n = document.createElement("a");
+      n.href = e, n.target = "_blank", setTimeout(function() {
+        g(n);
       });
     }
   else
-    navigator.msSaveOrOpenBlob(B(e, o), n);
+    navigator.msSaveOrOpenBlob(B(e, o), t);
 }
-function Y(e, n, o, t) {
-  if (t = t || open("", "_blank"), t && (t.document.title = t.document.body.innerText = "downloading..."), typeof e == "string")
-    return S(e, n, o);
+function Y(e, t, o, n) {
+  if (n = n || open("", "_blank"), n && (n.document.title = n.document.body.innerText = "downloading..."), typeof e == "string")
+    return S(e, t, o);
   const s = e.type === "application/octet-stream", a = /constructor/i.test(String(O.HTMLElement)) || "safari" in O, i = /CriOS\/[\d]+/.test(navigator.userAgent);
   if ((i || s && a || P) && typeof FileReader < "u") {
     const r = new FileReader();
     r.onloadend = function() {
       let c = r.result;
       if (typeof c != "string")
-        throw t = null, new Error("Wrong reader.result type");
-      c = i ? c : c.replace(/^data:[^;]*;/, "data:attachment/file;"), t ? t.location.href = c : location.assign(c), t = null;
+        throw n = null, new Error("Wrong reader.result type");
+      c = i ? c : c.replace(/^data:[^;]*;/, "data:attachment/file;"), n ? n.location.href = c : location.assign(c), n = null;
     }, r.readAsDataURL(e);
   } else {
     const r = URL.createObjectURL(e);
-    t ? t.location.assign(r) : location.href = r, t = null, setTimeout(function() {
+    n ? n.location.assign(r) : location.href = r, n = null, setTimeout(function() {
       URL.revokeObjectURL(r);
     }, 4e4);
   }
 }
-function l(e, n) {
+function l(e, t) {
   const o = "🍍 " + e;
-  typeof __VUE_DEVTOOLS_TOAST__ == "function" ? __VUE_DEVTOOLS_TOAST__(o, n) : n === "error" ? console.error(o) : n === "warn" ? console.warn(o) : console.log(o);
+  typeof __VUE_DEVTOOLS_TOAST__ == "function" ? __VUE_DEVTOOLS_TOAST__(o, t) : t === "error" ? console.error(o) : t === "warn" ? console.warn(o) : console.log(o);
 }
 function w(e) {
   return "_a" in e && "install" in e;
 }
-function x() {
+function A() {
   if (!("clipboard" in navigator))
     return l("Your browser doesn't support the Clipboard API", "error"), !0;
 }
@@ -235,46 +235,46 @@ function $(e) {
   return e instanceof Error && e.message.toLowerCase().includes("document is not focused") ? (l('You need to activate the "Emulate a focused page" setting in the "Rendering" panel of devtools.', "warn"), !0) : !1;
 }
 async function z(e) {
-  if (!x())
+  if (!A())
     try {
       await navigator.clipboard.writeText(JSON.stringify(e.state.value)), l("Global state copied to clipboard.");
-    } catch (n) {
-      if ($(n))
+    } catch (t) {
+      if ($(t))
         return;
-      l("Failed to serialize the state. Check the console for more details.", "error"), console.error(n);
+      l("Failed to serialize the state. Check the console for more details.", "error"), console.error(t);
     }
 }
 async function W(e) {
-  if (!x())
+  if (!A())
     try {
       k(e, JSON.parse(await navigator.clipboard.readText())), l("Global state pasted from clipboard.");
-    } catch (n) {
-      if ($(n))
+    } catch (t) {
+      if ($(t))
         return;
-      l("Failed to deserialize the state from clipboard. Check the console for more details.", "error"), console.error(n);
+      l("Failed to deserialize the state from clipboard. Check the console for more details.", "error"), console.error(t);
     }
 }
 async function q(e) {
   try {
-    A(new Blob([JSON.stringify(e.state.value)], {
+    x(new Blob([JSON.stringify(e.state.value)], {
       type: "text/plain;charset=utf-8"
     }), "pinia-state.json");
-  } catch (n) {
-    l("Failed to export the state as JSON. Check the console for more details.", "error"), console.error(n);
+  } catch (t) {
+    l("Failed to export the state as JSON. Check the console for more details.", "error"), console.error(t);
   }
 }
-let u;
+let f;
 function X() {
-  u || (u = document.createElement("input"), u.type = "file", u.accept = ".json");
+  f || (f = document.createElement("input"), f.type = "file", f.accept = ".json");
   function e() {
-    return new Promise((n, o) => {
-      u.onchange = async () => {
-        const t = u.files;
-        if (!t)
-          return n(null);
-        const s = t.item(0);
-        return n(s ? { text: await s.text(), file: s } : null);
-      }, u.oncancel = () => n(null), u.onerror = o, u.click();
+    return new Promise((t, o) => {
+      f.onchange = async () => {
+        const n = f.files;
+        if (!n)
+          return t(null);
+        const s = n.item(0);
+        return t(s ? { text: await s.text(), file: s } : null);
+      }, f.oncancel = () => t(null), f.onerror = o, f.click();
     });
   }
   return e;
@@ -284,16 +284,16 @@ async function Z(e) {
     const o = await X()();
     if (!o)
       return;
-    const { text: t, file: s } = o;
-    k(e, JSON.parse(t)), l(`Global state imported from "${s.name}".`);
-  } catch (n) {
-    l("Failed to import the state from JSON. Check the console for more details.", "error"), console.error(n);
+    const { text: n, file: s } = o;
+    k(e, JSON.parse(n)), l(`Global state imported from "${s.name}".`);
+  } catch (t) {
+    l("Failed to import the state from JSON. Check the console for more details.", "error"), console.error(t);
   }
 }
-function k(e, n) {
-  for (const o in n) {
-    const t = e.state.value[o];
-    t ? Object.assign(t, n[o]) : e.state.value[o] = n[o];
+function k(e, t) {
+  for (const o in t) {
+    const n = e.state.value[o];
+    n ? Object.assign(n, t[o]) : e.state.value[o] = t[o];
   }
 }
 const j = "🍍 Pinia (root)", p = "_root";
@@ -308,15 +308,15 @@ function ee(e) {
 }
 function te(e) {
   if (w(e)) {
-    const o = Array.from(e._s.keys()), t = e._s;
+    const o = Array.from(e._s.keys()), n = e._s;
     return {
       state: o.map((a) => ({
         editable: !0,
         key: a,
         value: e.state.value[a]
       })),
-      getters: o.filter((a) => t.get(a)._getters).map((a) => {
-        const i = t.get(a);
+      getters: o.filter((a) => n.get(a)._getters).map((a) => {
+        const i = n.get(a);
         return {
           editable: !1,
           key: a,
@@ -325,25 +325,25 @@ function te(e) {
       })
     };
   }
-  const n = {
+  const t = {
     state: Object.keys(e.$state).map((o) => ({
       editable: !0,
       key: o,
       value: e.$state[o]
     }))
   };
-  return e._getters && e._getters.length && (n.getters = e._getters.map((o) => ({
+  return e._getters && e._getters.length && (t.getters = e._getters.map((o) => ({
     editable: !1,
     key: o,
     value: e[o]
-  }))), e._customProperties.size && (n.customProperties = Array.from(e._customProperties).map((o) => ({
+  }))), e._customProperties.size && (t.customProperties = Array.from(e._customProperties).map((o) => ({
     editable: !0,
     key: o,
     value: e[o]
-  }))), n;
+  }))), t;
 }
 const ne = [], oe = "pinia:mutations", d = "pinia", y = (e) => "🍍 " + e;
-function re(e, n) {
+function re(e, t) {
   H({
     id: "dev.esm.pinia",
     label: "Pinia 🍍",
@@ -366,28 +366,28 @@ function re(e, n) {
         {
           icon: "content_copy",
           action: () => {
-            z(n);
+            z(t);
           },
           tooltip: "Serialize and copy the state"
         },
         {
           icon: "content_paste",
           action: async () => {
-            await W(n), o.sendInspectorTree(d), o.sendInspectorState(d);
+            await W(t), o.sendInspectorTree(d), o.sendInspectorState(d);
           },
           tooltip: "Replace the state with the content of your clipboard"
         },
         {
           icon: "save",
           action: () => {
-            q(n);
+            q(t);
           },
           tooltip: "Save the state as a JSON file"
         },
         {
           icon: "folder_open",
           action: async () => {
-            await Z(n), o.sendInspectorTree(d), o.sendInspectorState(d);
+            await Z(t), o.sendInspectorTree(d), o.sendInspectorState(d);
           },
           tooltip: "Import the state from a JSON file"
         }
@@ -396,18 +396,18 @@ function re(e, n) {
         {
           icon: "restore",
           tooltip: 'Reset the state (with "$reset")',
-          action: (t) => {
-            const s = n._s.get(t);
-            s ? typeof s.$reset != "function" ? l(`Cannot reset "${t}" store because it doesn't have a "$reset" method implemented.`, "warn") : (s.$reset(), l(`Store "${t}" reset.`)) : l(`Cannot reset "${t}" store because it wasn't found.`, "warn");
+          action: (n) => {
+            const s = t._s.get(n);
+            s ? typeof s.$reset != "function" ? l(`Cannot reset "${n}" store because it doesn't have a "$reset" method implemented.`, "warn") : (s.$reset(), l(`Store "${n}" reset.`)) : l(`Cannot reset "${n}" store because it wasn't found.`, "warn");
           }
         }
       ]
-    }), o.on.inspectComponent((t, s) => {
-      const a = t.componentInstance && t.componentInstance.proxy;
+    }), o.on.inspectComponent((n, s) => {
+      const a = n.componentInstance && n.componentInstance.proxy;
       if (a && a._pStores) {
-        const i = t.componentInstance.proxy._pStores;
+        const i = n.componentInstance.proxy._pStores;
         Object.values(i).forEach((r) => {
-          t.instanceData.state.push({
+          n.instanceData.state.push({
             type: y(r.$id),
             key: "state",
             editable: !0,
@@ -424,74 +424,83 @@ function re(e, n) {
               }
             } : (
               // NOTE: workaround to unwrap transferred refs
-              Object.keys(r.$state).reduce((c, f) => (c[f] = r.$state[f], c), {})
+              Object.keys(r.$state).reduce((c, u) => (c[u] = r.$state[u], c), {})
             )
-          }), r._getters && r._getters.length && t.instanceData.state.push({
+          }), r._getters && r._getters.length && n.instanceData.state.push({
             type: y(r.$id),
             key: "getters",
             editable: !1,
-            value: r._getters.reduce((c, f) => {
+            value: r._getters.reduce((c, u) => {
               try {
-                c[f] = r[f];
+                c[u] = r[u];
               } catch (V) {
-                c[f] = V;
+                c[u] = V;
               }
               return c;
             }, {})
           });
         });
       }
-    }), o.on.getInspectorTree((t) => {
-      if (t.app === e && t.inspectorId === d) {
-        let s = [n];
-        s = s.concat(Array.from(n._s.values())), t.rootNodes = (t.filter ? s.filter((a) => "$id" in a ? a.$id.toLowerCase().includes(t.filter.toLowerCase()) : j.toLowerCase().includes(t.filter.toLowerCase())) : s).map(ee);
+    }), o.on.getInspectorTree((n) => {
+      if (n.app === e && n.inspectorId === d) {
+        let s = [t];
+        s = s.concat(Array.from(t._s.values())), n.rootNodes = (n.filter ? s.filter((a) => "$id" in a ? a.$id.toLowerCase().includes(n.filter.toLowerCase()) : j.toLowerCase().includes(n.filter.toLowerCase())) : s).map(ee);
       }
-    }), o.on.getInspectorState((t) => {
-      if (t.app === e && t.inspectorId === d) {
-        const s = t.nodeId === p ? n : n._s.get(t.nodeId);
+    }), o.on.getInspectorState((n) => {
+      if (n.app === e && n.inspectorId === d) {
+        const s = n.nodeId === p ? t : t._s.get(n.nodeId);
         if (!s)
           return;
-        s && (t.state = te(s));
+        s && (n.state = te(s));
       }
-    }), o.on.editInspectorState((t, s) => {
-      if (t.app === e && t.inspectorId === d) {
-        const a = t.nodeId === p ? n : n._s.get(t.nodeId);
+    }), o.on.editInspectorState((n, s) => {
+      if (n.app === e && n.inspectorId === d) {
+        const a = n.nodeId === p ? t : t._s.get(n.nodeId);
         if (!a)
-          return l(`store "${t.nodeId}" not found`, "error");
-        const { path: i } = t;
-        w(a) ? i.unshift("state") : (i.length !== 1 || !a._customProperties.has(i[0]) || i[0] in a.$state) && i.unshift("$state"), t.set(a, i, t.state.value);
+          return l(`store "${n.nodeId}" not found`, "error");
+        const { path: i } = n;
+        w(a) ? i.unshift("state") : (i.length !== 1 || !a._customProperties.has(i[0]) || i[0] in a.$state) && i.unshift("$state"), n.set(a, i, n.state.value);
       }
-    }), o.on.editComponentState((t) => {
-      if (t.type.startsWith("🍍")) {
-        const s = t.type.replace(/^🍍\s*/, ""), a = n._s.get(s);
+    }), o.on.editComponentState((n) => {
+      if (n.type.startsWith("🍍")) {
+        const s = n.type.replace(/^🍍\s*/, ""), a = t._s.get(s);
         if (!a)
           return l(`store "${s}" not found`, "error");
-        const { path: i } = t;
+        const { path: i } = n;
         if (i[0] !== "state")
           return l(`Invalid path for store "${s}":
 ${i}
 Only state can be modified.`);
-        i[0] = "$state", t.set(a, i, t.state.value);
+        i[0] = "$state", n.set(a, i, n.state.value);
       }
     });
   });
 }
-const T = (e, n) => {
-  if (n.config.devtools)
+const se = (e) => {
+  e.includes("-alpha.") && (e = e.split("-alpha.")[0]);
+  const [t, o] = e.split(".").map(Number);
+  return t > 3 || t === 3 && o >= 3;
+}, T = (e, t) => {
+  if (t.config.devtools)
     return;
-  n.config.devtools = !0, e.emit("app:init", n, n.version, {
+  t.config.devtools = !0, se(t.version) ? e.emit("app:init", t, t.version, {
+    Fragment: Symbol.for("v-fgt"),
+    Text: Symbol.for("v-txt"),
+    Comment: Symbol.for("v-cmt"),
+    Static: Symbol.for("v-stc")
+  }) : e.emit("app:init", t, t.version, {
     Fragment: Symbol.for("Fragment"),
     Text: Symbol.for("Text"),
     Comment: Symbol.for("Comment"),
     Static: Symbol.for("Static")
-  }), console.log(`vue devtools for [${n.version}] already open !!!`);
-  const o = n.unmount.bind(n);
-  n.unmount = () => {
-    e.emit("app:unmount", n), o();
-  }, n.config.globalProperties.$store && console.warn("vuex for vue3 not support. please use pinia");
-  const t = n.config.globalProperties.$pinia;
-  t && re(n, t);
-}, se = () => {
+  }), console.log(`vue devtools for [${t.version}] already open !!!`);
+  const o = t.unmount.bind(t);
+  t.unmount = () => {
+    e.emit("app:unmount", t), o();
+  }, t.config.globalProperties.$store && console.warn("vuex for vue3 not support. please use pinia");
+  const n = t.config.globalProperties.$pinia;
+  n && re(t, n);
+}, ie = () => {
   if (self != top)
     return;
   const e = window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
@@ -499,20 +508,20 @@ const T = (e, n) => {
     console.warn("No Vue devtools found , Please install it first: "), console.warn("see https://github.com/vuejs/vue-devtools");
     return;
   }
-  const n = window.app;
-  if (!n)
+  const t = window.app;
+  if (!t)
     return;
-  if (n.__vue__) {
-    v(e, n.__vue__);
-    return;
-  }
-  if (n.__vue_app__) {
-    T(e, n.__vue_app__);
+  if (t.__vue__) {
+    v(e, t.__vue__);
     return;
   }
-  new MutationObserver((t, s) => {
+  if (t.__vue_app__) {
+    T(e, t.__vue_app__);
+    return;
+  }
+  new MutationObserver((n, s) => {
     const a = s.disconnect.bind(s);
-    for (const i of t) {
+    for (const i of n) {
       const r = i.target;
       r.__vue__ ? (v(e, r.__vue__), a()) : r.__vue_app__ && (T(e, r.__vue_app__), a());
     }
@@ -522,4 +531,4 @@ const T = (e, n) => {
     childList: !0
   });
 };
-se();
+ie();

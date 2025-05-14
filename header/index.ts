@@ -10,7 +10,7 @@ const script: UserScript = {
     homepage: 'https://github.com/xcr1234/vue-devtools-production',
     description: '使用本脚本支持直接调试生产环境的Vue项目 完美支持Vue2、Vue3！',
     icon: 'data:image/jpeg;base64,' + base64str,
-    version: '2.0.0',
+    version: '2.1.0',
     includes: [
         '*'
     ],
