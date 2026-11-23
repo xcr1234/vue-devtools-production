@@ -23,4 +23,12 @@
 
 https://github.com/xcr1234/tampermonkey-typescript
 
+### Pinia 生产环境调试
+
+脚本通过 `@vue/devtools-api` 注册检查面板，读取页面已有的 `$pinia`，不打包 Pinia 或 Vue 运行时，也不修改它们的源码。项目中的 Pinia 和 Vue 开发依赖只用于回归测试。
+
+支持 root 和单个 store 的状态查看、编辑、状态变化刷新，以及可用时的 getters、自定义属性和 store 重置。生产 store 缺少 `_getters`、`_customProperties` 等调试字段时不会导致状态面板空白。此适配并不等于恢复原生 Pinia Devtools 的全部功能，例如操作时间线、导入导出和组件面板集成。
+
+运行 `npm test` 验证生产 store 的读取、编辑和构建产物，运行 `npm run build` 生成 `dist/main.js`。页面上的 Pinia 版本不需要与测试依赖一致，但仍需使用目标页面验证兼容性。
+
 

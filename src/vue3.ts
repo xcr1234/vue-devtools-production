@@ -1,12 +1,13 @@
 import {DevtoolsHook} from "./hook";
-import {registerPiniaDevtools} from 'pinia'
+import {registerPiniaDevtools} from './pinia'
+import type {PiniaInstance} from './pinia'
 
 export interface Vue3App {
     config: {
         devtools: boolean,
         globalProperties:{
             $store?:any
-            $pinia?: any
+            $pinia?: PiniaInstance
         },
     },
     version: string
@@ -60,8 +61,10 @@ export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
 
     console.log(`vue devtools for [${vue.version}] already open !!!`)
 
+    let disposePinia = () => {}
     const unmount = vue.unmount.bind(vue);
     vue.unmount = () => {
+        disposePinia()
         hook.emit('app:unmount', vue);
         unmount();
     }
@@ -70,6 +73,6 @@ export const hookVue3 = (hook: DevtoolsHook, vue: Vue3App) => {
     }
     const pinia = vue.config.globalProperties.$pinia
     if(pinia){
-        registerPiniaDevtools(vue, pinia)
+        disposePinia = registerPiniaDevtools(vue, pinia)
     }
 }

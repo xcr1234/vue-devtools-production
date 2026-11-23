@@ -7,7 +7,7 @@
     "build": "tsc && vite build",
     "build:sync": "tsc && vite build --watch --mode sync",
     "start:server": "node server.cjs",
-    "postinstall": "patch-package"
+    "test": "node --test tests/pinia.test.mjs"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.6",
@@ -16,16 +16,15 @@
     "dialog": "0.3.1",
     "glob": "7.1.6",
     "open": "7.3.0",
+    "pinia": "2.1.7",
     "ts-node": "^9.1.1",
     "typescript": "^5.2.2",
     "upath": "2.0.1",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vue": "3.4.33"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "patch-package": "^8.0.0",
-    "pinia": "^2.1.7",
-    "postinstall-postinstall": "^2.1.0",
-    "vue": "^3.4.33"
+    "@vue/devtools-api": "6.6.3",
+    "lodash": "^4.17.21"
   }
 }
